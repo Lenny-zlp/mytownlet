@@ -36,7 +36,6 @@ export default {
 </script>
 
 <style scoped lang='less'>
-  @baseColor:#eb5902;
   .tabbar {
     width: 100%;
     position: fixed;
@@ -63,7 +62,7 @@ export default {
         font-size: 14px;
       }
       .active {
-        color: @baseColor;
+        color: #eb5902;
       }
     }
   }

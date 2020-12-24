@@ -16,7 +16,7 @@
       </router-link>
     </header>
     <!-- 头部 / -->
-    <van-tabs v-model:active="active" swipeable>
+    <van-tabs v-model:active="active" swipeable @click="clicknavs">
       <van-tab class="pageCont" v-for="(item,index) in menu" :key="index" :title="item.PageName">
         {{item}}
       </van-tab>
@@ -26,14 +26,16 @@
 
 <script>
 import { onMounted, reactive, toRefs } from 'vue'
-import { page } from '@/utils/api'
+import { page, topic } from '@/utils/api'
 
 export default {
   name: 'Home',
   setup () {
     const state = reactive({
       keyword: '请输入搜索内容',
-      menu: [{ Code: 467, PageName: '首页', currentIndex: 0 }]
+      menu: [{ Code: '467', PageName: '首页', currentIndex: 0 }],
+      cont: [],
+      code: 467
     })
     onMounted(async () => {
       localStorage.setItem('user', 'info')
@@ -41,11 +43,36 @@ export default {
       await page(data).then(res => {
         state.list = res.data.data
         state.keyword = res.data.keyword
+        res.data.data.forEach(v => {
+          if (v.ModuleType === 10) {
+            v.Module.forEach((item, index) => {
+              const temp = {
+                Code: v.Module[index].Code,
+                PageName: v.Module[index].PageName,
+                currentIndex: index + 1
+              }
+              state.menu.push(temp)
+            })
+          } else {
+            state.cont.push(v)
+          }
+        })
         console.log('loginres', state.list)
       })
+      console.log(state.menu)
+      console.log(state.cont)
     })
+    const clicknavs = async (index) => {
+      const code = state.menu[index].Code
+      console.log(code)
+      const topicdata = { id: code, wxsource: 1 }
+      await topic(topicdata).then(res => {
+        console.log(res)
+      })
+    }
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      clicknavs
     }
   }
 }

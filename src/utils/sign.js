@@ -14,7 +14,7 @@ export function getSign (parms) {
   }
   const obj = { ...ordered, ...base }
   if (Object.keys(obj).length === 1) {
-    sign = md5(obj).toUpperCase()
+    sign = md5(qs.stringify(obj)).toUpperCase()
   } else {
     sign = md5(qs.stringify(obj)).toUpperCase()
   }
