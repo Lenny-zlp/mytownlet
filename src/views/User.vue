@@ -1,20 +1,16 @@
 <template>
-  <div class='user'>会员中心</div>
+  <div class='user'>会员中心
+    <tab-bar></tab-bar>
+  </div>
 </template>
 
 <script>
+import TabBar from '@/components/TabBar'
 export default {
-  name: '',
-  components: {},
-  props: {},
-  data () {
-    return {}
-  },
-  computed: {},
-  watch: {},
-  created () {},
-  mounted () {},
-  methods: {}
+  name: 'User',
+  components: {
+    TabBar
+  }
 }
 </script>
 

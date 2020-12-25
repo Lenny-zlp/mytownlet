@@ -20,7 +20,7 @@
         @load="onLoad"
       >
         <van-cell v-for="(item,index) in productList" :key="index">
-          <div class="productList">
+          <div class="productList" @click="goDetail(item)">
             <div class="img"><van-image width="100" height="100" lazy-load :src="item.Img" /></div>
             <div class="fr">
               <div class="title">{{item.ProductName}}</div>
@@ -31,16 +31,24 @@
         </van-cell>
       </van-list>
     </div>
+    <tab-bar></tab-bar>
   </div>
 </template>
 
 <script>
 
+import TabBar from '@/components/TabBar'
 import { onMounted, ref, reactive, toRefs } from 'vue'
 import { getnavs, getlist } from '@/utils/api'
+import { useRouter } from 'vue-router'
 
 export default {
+  name: 'Category',
+  components: {
+    TabBar
+  },
   setup () {
+    const router = useRouter()
     const active = ref(0)
     const state = reactive({
       keyword: '',
@@ -55,11 +63,15 @@ export default {
 
     const clickNavs = (id) => {
       state.productList = []
+      state.page = 1
+      state.categoryid = id
       state.finished = false
-      getListcont(id, 1)
+      getListcont(state.categoryid, state.page)
+      console.log(id, state.page)
     }
     const onLoad = async () => {
       getListcont(state.categoryid, state.page)
+      console.log(state.categoryid, state.page)
       // state.loading = false
       // if ()
       console.log(state.loading)
@@ -83,6 +95,10 @@ export default {
       })
       // return data
     }
+    const goDetail = (item) => {
+      console.log(item)
+      router.push({ path: `/productdetail/${item.ProductCode}` })
+    }
     onMounted(async () => {
       await getnavs().then(res => {
         state.keyword = res.data.data.keyword
@@ -96,7 +112,8 @@ export default {
       onLoad,
       active,
       getListcont,
-      clickNavs
+      clickNavs,
+      goDetail
     }
   }
 }
@@ -134,7 +151,7 @@ export default {
     display: flex;
     padding-top: 50px;
     .navs {
-      width: 18%;
+      width: 16%;
       height: 100%;
       background: #fff;
       position: fixed;
@@ -142,8 +159,8 @@ export default {
       top: 50px;
     }
     .productcont {
-      width: 82%;
-      padding-left: 18%;
+      width: 84%;
+      padding-left: 16%;
       padding-bottom: 60px;
       .productList {
         display: flex;
@@ -166,6 +183,11 @@ export default {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            font-size: 13px;
+            color: #999;
+          }
+          .price {
+            color: #eb5902;
           }
         }
       }

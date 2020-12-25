@@ -1,20 +1,16 @@
 <template>
-  <div class='shopcart'>购物车</div>
+  <div class='shopcart'>购物车
+    <tab-bar></tab-bar>
+  </div>
 </template>
 
 <script>
+import TabBar from '@/components/TabBar'
 export default {
-  name: '',
-  components: {},
-  props: {},
-  data () {
-    return {}
-  },
-  computed: {},
-  watch: {},
-  created () {},
-  mounted () {},
-  methods: {}
+  name: 'ShopCart',
+  components: {
+    TabBar
+  }
 }
 </script>
 

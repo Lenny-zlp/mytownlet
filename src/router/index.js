@@ -5,6 +5,7 @@ import ShopCart from '../views/ShopCart.vue'
 import User from '../views/User.vue'
 import Search from '../views/Search.vue'
 import Login from '../views/Login.vue'
+import ProductDetail from '../views/ProductDetail.vue'
 
 const routes = [
   {
@@ -40,6 +41,11 @@ const routes = [
     path: '/search',
     name: 'Search',
     component: Search
+  },
+  {
+    path: '/productdetail/:productcode',
+    name: 'Product',
+    component: ProductDetail
   }
   // {
   //   path: '/about',

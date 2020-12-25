@@ -21,3 +21,19 @@ export function getnavs (parms) {
 export function getlist (parms) {
   return request.get('/Product/CategoryProducts?' + getSign(parms))
 }
+// 商品详情
+export function getproduct (parms) {
+  return request.post('/product/product', getSign(parms))
+}
+// 商品评价
+export function productcomment (parms) {
+  return request.get('/Product/ProductComment?' + getSign(parms))
+}
+// 商品规格尺码
+export function productspec (parms) {
+  return request.post('/product/GetCHProductCude', getSign(parms))
+}
+// 商品推荐
+export function ProductRecommend (parms) {
+  return request.get('/product/ProductRecommend' + getSign(parms))
+}

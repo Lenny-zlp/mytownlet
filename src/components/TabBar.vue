@@ -23,15 +23,7 @@
 
 <script>
 export default {
-  name: 'Tabbar',
-  data () {
-    return {}
-  },
-  computed: {},
-  watch: {},
-  created () {},
-  mounted () {},
-  methods: {}
+  name: 'Tabbar'
 }
 </script>
 
